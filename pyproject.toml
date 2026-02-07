@@ -60,4 +60,4 @@ include = [
 ]
 
 [tool.setuptools_scm]
-write_to = "stsci/stimage/_version.py"
+write_to = "src/stsci/stimage/_version.py"
