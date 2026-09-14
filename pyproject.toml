@@ -54,7 +54,7 @@ build = [
     "cp311-*",  # build for CPython 3.11 Stable API
     "cp3*t-*",  # build for free-threaded Python
 ]
-test-command = 'python -c "from stimage import xy_coord_match, geomap"'
+test-command = 'python -c "from xy_coord_match import _c_xy_coord_match"'
 
 [tool.cibuildwheel.macos]
 archs = ["arm64", "x86_64"]
