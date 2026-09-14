@@ -29,8 +29,7 @@
 
 from __future__ import absolute_import
 from ._version import version as __version__  # noqa: F401
-from . import _stimage
-
+import xy_coord_match._c_xy_coord_match as _c_xy_coord_match
 
 def xyxymatch(
     input,
@@ -235,20 +234,8 @@ def xyxymatch(
     - *ref_y*
     - *ref_idx*
     """
-    return _stimage.xyxymatch(
-        input,
-        ref,
-        origin,
-        mag,
-        rotation,
-        ref_origin,
-        algorithm,
-        tolerance,
-        separation,
-        nmatch,
-        maxratio,
-        nreject,
-    )
+    return _c_xy_coord_match.xyxymatch(input, ref, origin, mag, rotation, ref_origin, algorithm, tolerance, separation,
+                                   nmatch, maxratio, nreject)
 
 
 def geomap(
@@ -577,7 +564,7 @@ def geomap(
       - *resid_x*
       - *resid_y*
     """
-    return _stimage.geomap(
+    return _c_xy_coord_match.geomap(
         input,
         ref,
         bbox,

@@ -1,5 +1,5 @@
 Functions
 =========
 
-.. automodule:: stsci.stimage
-   :members: xyxymatch, geomap
+.. automodule:: stimage
+   :members: xyxymatch

@@ -31,7 +31,7 @@ import pytest
 
 import math
 import numpy as np
-import stsci.stimage as stimage
+import xy_coord_match
 
 
 def rotation_matrix(theta):
@@ -156,7 +156,7 @@ def test_triangles_15_points_same():
     """
     inp, ref, elen = get_ndarrays()
 
-    r = stimage.xyxymatch(inp, ref, algorithm="triangles", tolerance=0.01)
+    r = xy_coord_match.xyxymatch(inp, ref, algorithm="triangles", tolerance=0.01)
 
     # All 15 base points should be matched.  The 5 extra random points should not be.
     assert len(r) == elen
@@ -174,7 +174,7 @@ def test_triangles_15_points_rotated(theta_deg):
     """
     inp, ref, elen = get_ndarrays("rotation", theta_deg)
 
-    r = stimage.xyxymatch(inp, ref, algorithm="triangles", tolerance=0.01)
+    r = xy_coord_match.xyxymatch(inp, ref, algorithm="triangles", tolerance=0.01)
 
     # All 15 base points should be matched.  The 5 extra random points should not be.
     assert len(r) == elen
@@ -191,7 +191,7 @@ def test_triangles_15_points_translated():
     """
     inp, ref, elen = get_ndarrays("translate", (-12.0, 21.0))
 
-    r = stimage.xyxymatch(inp, ref, algorithm="triangles", tolerance=0.01)
+    r = xy_coord_match.xyxymatch(inp, ref, algorithm="triangles", tolerance=0.01)
 
     # All 15 base points should be matched.  The 5 extra random points should not be.
     assert len(r) == elen
@@ -208,7 +208,7 @@ def test_triangles_15_points_flipped():
     """
     inp, ref, elen = get_ndarrays("flip")
 
-    r = stimage.xyxymatch(inp, ref, algorithm="triangles", tolerance=0.01)
+    r = xy_coord_match.xyxymatch(inp, ref, algorithm="triangles", tolerance=0.01)
 
     # All 15 base points should be matched.  The 5 extra random points should not be.
     assert len(r) == elen
@@ -226,7 +226,7 @@ def test_triangles_15_points_magnified(mag):
     """
     inp, ref, elen = get_ndarrays("magnify", mag)
 
-    r = stimage.xyxymatch(inp, ref, algorithm="triangles", tolerance=0.01)
+    r = xy_coord_match.xyxymatch(inp, ref, algorithm="triangles", tolerance=0.01)
 
     # All 15 base points should be matched.  The 5 extra random points should not be.
     if mag > 0.3:
@@ -249,7 +249,7 @@ def test_triangles_15_points_all_transforms():
     transforms = {"deg": 150.0, "mag": 10.0, "trans": (-12.0, 21.0)}
     inp, ref, elen = get_ndarrays("all", transforms)
 
-    r = stimage.xyxymatch(inp, ref, algorithm="triangles", tolerance=0.01)
+    r = xy_coord_match.xyxymatch(inp, ref, algorithm="triangles", tolerance=0.01)
 
     # All 15 base points should be matched.  The 5 extra random points should not be.
     assert len(r) == elen
@@ -263,7 +263,7 @@ def test_tolerance_15_points_same():
     """
     inp, ref, elen = get_ndarrays()
 
-    r = stimage.xyxymatch(inp, ref, algorithm="tolerance", tolerance=0.01)
+    r = xy_coord_match.xyxymatch(inp, ref, algorithm="tolerance", tolerance=0.01)
 
     # All 15 base points should be matched.  The 5 extra random points should not be.
     assert len(r) == elen
@@ -274,9 +274,7 @@ def test_tolerance_15_points_rotated(theta_deg):
     ref, inp, elen = get_ndarrays("rotation", theta_deg)
 
     rotation = (theta_deg, theta_deg)
-    r = stimage.xyxymatch(
-        inp, ref, algorithm="tolerance", tolerance=0.01, rotation=rotation
-    )
+    r = xy_coord_match.xyxymatch(inp, ref, rotation=rotation, algorithm="tolerance", tolerance=0.01)
 
     # All 15 base points should be matched.  The 5 extra random points should not be.
     assert len(r) == elen
@@ -285,9 +283,7 @@ def test_tolerance_15_points_rotated(theta_deg):
 def test_tolerance_15_points_translated():
     ref, inp, elen = get_ndarrays("translate", (-12.0, 21.0))
 
-    r = stimage.xyxymatch(
-        inp, ref, algorithm="tolerance", tolerance=0.01, ref_origin=(-12.0, 21.0)
-    )
+    r = xy_coord_match.xyxymatch(inp, ref, ref_origin=(-12.0, 21.0), algorithm="tolerance", tolerance=0.01)
 
     # All 15 base points should be matched.  The 5 extra random points should not be.
     assert len(r) == elen
@@ -298,7 +294,7 @@ def test_tolerance_15_points_magnified(mag):
     ref, inp, elen = get_ndarrays("magnify", mag)
 
     in_mag = [mag, mag]
-    r = stimage.xyxymatch(inp, ref, algorithm="tolerance", tolerance=0.01, mag=in_mag)
+    r = xy_coord_match.xyxymatch(inp, ref, mag=in_mag, algorithm="tolerance", tolerance=0.01)
 
     if mag > 0.3:
         # All 15 base points should be matched.  The 5 extra random points should not be.
@@ -315,15 +311,8 @@ def test_tolerance_15_points_all_transforms():
 
     rotation = [theta_deg, theta_deg]
     in_mag = [mag, mag]
-    r = stimage.xyxymatch(
-        inp,
-        ref,
-        algorithm="tolerance",
-        tolerance=0.01,
-        mag=in_mag,
-        rotation=rotation,
-        ref_origin=point,
-    )
+    r = xy_coord_match.xyxymatch(inp, ref, mag=in_mag, rotation=rotation, ref_origin=point, algorithm="tolerance",
+                                      tolerance=0.01)
 
     # All 15 base points should be matched.  The 5 extra random points should not be.
     assert len(r) == elen

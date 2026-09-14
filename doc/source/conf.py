@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# stimage documentation build configuration file, created by
+# xy_coord_match documentation build configuration file, created by
 # sphinx-quickstart on Fri Aug 27 10:06:18 2010.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -102,7 +102,7 @@ exclude_trees = []
 pygments_style = "sphinx"
 
 # A list of ignored prefixes for module index sorting.
-modindex_common_prefix = ["stsci.stimage."]
+modindex_common_prefix = ["stsci.xy_coord_match."]
 
 # -- Options for HTML output ---------------------------------------------------
 
@@ -188,7 +188,7 @@ htmlhelp_basename = "stimagedoc"
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-    ("index", "stimage.tex", "stimage Documentation", "STScI", "manual"),
+    ("index", "xy_coord_match.tex", "xy_coord_match Documentation", "STScI", "manual"),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

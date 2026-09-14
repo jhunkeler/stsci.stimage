@@ -32,8 +32,8 @@ def c_includes(parent, depth=1):
     return includes
 
 
-SOURCES = c_sources("src")
-INCLUDES = c_includes("include") + c_includes("src") + [numpy_includes()]
+SOURCES = c_sources("src/extension")
+INCLUDES = c_includes("include") + c_includes("src/extension/wrap") + [numpy_includes()]
 
 cfg = {
     "libraries": [],
@@ -64,7 +64,7 @@ else:
 # when adding new modules here, make sure to add them to the `test_command` entry there
 ext_modules = [
     Extension(
-        "stsci.stimage._stimage",
+        "xy_coord_match._c_xy_coord_match",
         sources=SOURCES,
         include_dirs=INCLUDES,
         **cfg,

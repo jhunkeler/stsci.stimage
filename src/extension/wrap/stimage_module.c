@@ -54,8 +54,8 @@ static PyMethodDef module_methods[] = {
 
 static struct PyModuleDef moduledef = {
     PyModuleDef_HEAD_INIT,
-    "_stimage",                                       /* m_name */
-    "Example module that creates an extension type.", /* m_doc */
+    "_c_xy_coord_match",               /* m_name */
+    "Aligns two sets of 2D coordinates ",             /* m_doc */
     -1,                                               /* m_size */
     module_methods,                                   /* m_methods */
     NULL,                                             /* m_reload */
@@ -65,7 +65,7 @@ static struct PyModuleDef moduledef = {
 };
 
 PyMODINIT_FUNC
-PyInit__stimage(void)
+PyInit__c_xy_coord_match(void)
 {
     PyObject *m;
 
@@ -76,7 +76,7 @@ PyInit__stimage(void)
 
     /* Check for errors */
     if (PyErr_Occurred()) {
-        Py_FatalError("can't initialize module cdrizzle");
+        Py_FatalError("can't initialize module xy_coord_match");
     }
 
     if (m != NULL && _setup_geomap_results_type(m) < 0) {
