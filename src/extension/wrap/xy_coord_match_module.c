@@ -37,8 +37,6 @@ DAMAGE.
 
 PyObject *
 py_xyxymatch(PyObject *, PyObject *, PyObject *);
-PyObject *
-py_geomap(PyObject *, PyObject *, PyObject *);
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
@@ -46,7 +44,6 @@ py_geomap(PyObject *, PyObject *, PyObject *);
 #pragma clang diagnostic ignored "-Wcast-function-type-mismatch"
 static PyMethodDef module_methods[] = {
     {"xyxymatch", (PyCFunction) py_xyxymatch, METH_VARARGS | METH_KEYWORDS, NULL},
-    {"geomap", (PyCFunction) py_geomap, METH_VARARGS | METH_KEYWORDS, NULL},
     {NULL} /* Sentinel */
 };
 #pragma clang diagnostic pop
@@ -77,11 +74,6 @@ PyInit__c_xy_coord_match(void)
     /* Check for errors */
     if (PyErr_Occurred()) {
         Py_FatalError("can't initialize module xy_coord_match");
-    }
-
-    if (m != NULL && _setup_geomap_results_type(m) < 0) {
-        Py_DECREF(m);
-        return NULL;
     }
 
     return m;

@@ -4,7 +4,6 @@ add_library(stimage STATIC
         immatch/lib/tolerance.c
         immatch/lib/triangles.c
         immatch/lib/triangles_vote.c
-        immatch/geomap.c
         immatch/xyxymatch.c
         lib/error.c
         lib/lintransform.c

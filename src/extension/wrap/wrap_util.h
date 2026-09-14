@@ -49,7 +49,7 @@ DAMAGE.
 #include <string.h>
 
 #include "immatch/xyxymatch.h"
-#include "immatch/geomap.h"
+#include "surface/surface.h"
 #include "lib/util.h"
 #include "lib/xybbox.h"
 
@@ -68,12 +68,6 @@ int
 to_xyxymatch_algo_e(const char *const name, const char *const s, xyxymatch_algo_e *const e);
 
 int
-to_geomap_fit_e(const char *const name, const char *const s, geomap_fit_e *const e);
-
-int
-from_geomap_fit_e(const geomap_fit_e e, PyObject **o);
-
-int
 to_surface_type_e(const char *const name, const char *const s, surface_type_e *const e);
 
 int
@@ -84,8 +78,5 @@ to_xterms_e(const char *const name, const char *const s, xterms_e *const e);
 
 int
 from_xterms_e(const xterms_e e, PyObject **o);
-
-int
-_setup_geomap_results_type(PyObject *m);
 
 #endif
