@@ -67,4 +67,4 @@ zip-safe = false
 include-package-data = false
 
 [tool.setuptools_scm]
-write_to = "_version.py"
+write_to = "xy_coord_match/_version.py"
