@@ -29,11 +29,12 @@
 
 from __future__ import absolute_import
 from importlib.metadata import version, PackageNotFoundError
+
 try:
     __version__ = version("xy_coord_match")
 except PackageNotFoundError:
     # package is not installed
-    __version__ = "0.0.0"
+    pass
 
 import xy_coord_match._c_xy_coord_match as _c_xy_coord_match
 
@@ -59,10 +60,7 @@ def xyxymatch(
     coordinate list reference to the corresponding *x* and *y*
     coordinates in the input coordinate list input to within a user
     specified tolerance *tolerance*, and returns the matched
-    coordinates in a structured array. The output results are suitable
-    as input to the `geomap` function which compute the actual
-    transformation required to register the corresponding reference
-    and input images.
+    coordinates in a structured array.
 
     `xyxymatch` matches the coordinate lists by:
 
