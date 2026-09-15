@@ -28,8 +28,15 @@
 # DAMAGE.
 
 from __future__ import absolute_import
-from ._version import __version__ # noqa: F401
+from importlib.metadata import version, PackageNotFoundError
+try:
+    __version__ = version("xy_coord_match")
+except PackageNotFoundError:
+    # package is not installed
+    __version__ = "0.0.0"
+
 import xy_coord_match._c_xy_coord_match as _c_xy_coord_match
+
 
 def xyxymatch(
     input,
