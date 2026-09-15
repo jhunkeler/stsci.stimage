@@ -65,3 +65,7 @@ ignore-words-list = "Groth"
 [tool.setuptools]
 zip-safe = false
 include-package-data = false
+
+[tool.setuptools.packages.find]
+where = ["src"]
+

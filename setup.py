@@ -7,6 +7,7 @@ from fnmatch import fnmatch
 
 from numpy import get_include as numpy_includes
 from setuptools import Extension, setup
+import setuptools_scm
 
 FREE_THREADED_PYTHON = sysconfig.get_config_var("Py_GIL_DISABLED") == 1
 
@@ -76,6 +77,7 @@ if not FREE_THREADED_PYTHON:
     SETUPTOOLS_OPTIONS["bdist_wheel"] = {"py_limited_api": "cp311"}
 
 setup(
+    use_scm_version=True,
     ext_modules=ext_modules,
     options=SETUPTOOLS_OPTIONS,
 )
