@@ -7,9 +7,7 @@ add_library(xy_coord_match STATIC
         immatch/xyxymatch.c
         lib/error.c
         lib/lintransform.c
-        lib/polynomial.c
         lib/util.c
-        lib/xybbox.c
         lib/xycoincide.c
         lib/xysort.c
 )
