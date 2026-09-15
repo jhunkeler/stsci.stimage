@@ -1,5 +1,5 @@
 Functions
 =========
 
-.. automodule:: stimage
+.. automodule:: xy_coord_match
    :members: xyxymatch
