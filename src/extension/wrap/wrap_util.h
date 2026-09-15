@@ -34,8 +34,8 @@ DAMAGE.
          help@stsci.edu
 */
 
-#ifndef __STIMAGE_WRAP_UTIL_H__
-#define __STIMAGE_WRAP_UTIL_H__
+#ifndef __XY_COORD_MATCH_WRAP_UTIL_H__
+#define __XY_COORD_MATCH_WRAP_UTIL_H__
 
 #define PY_ARRAY_UNIQUE_SYMBOL pywcs_numpy_api
 
@@ -49,9 +49,7 @@ DAMAGE.
 #include <string.h>
 
 #include "immatch/xyxymatch.h"
-#include "surface/surface.h"
 #include "lib/util.h"
-#include "lib/xybbox.h"
 
 extern char *SIZE_T_D;
 
@@ -59,24 +57,6 @@ int
 to_coord_t(const char *const name, PyObject *o, coord_t *const c);
 
 int
-from_coord_t(const coord_t *const c, PyArrayObject **o);
-
-int
-to_bbox_t(const char *const name, PyObject *o, bbox_t *const b);
-
-int
 to_xyxymatch_algo_e(const char *const name, const char *const s, xyxymatch_algo_e *const e);
-
-int
-to_surface_type_e(const char *const name, const char *const s, surface_type_e *const e);
-
-int
-from_surface_type_e(const surface_type_e e, PyObject **o);
-
-int
-to_xterms_e(const char *const name, const char *const s, xterms_e *const e);
-
-int
-from_xterms_e(const xterms_e e, PyObject **o);
 
 #endif

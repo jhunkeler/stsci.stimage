@@ -51,14 +51,14 @@ typedef struct {
 } xyxymatch_callback_data_t;
 
 static int
-xyxymatch_callback(void *data, size_t ref_index, size_t input_index, stimage_error_t *error)
+xyxymatch_callback(void *data, size_t ref_index, size_t input_index, xy_coord_match_error_t *error)
 {
 
     xyxymatch_callback_data_t *state = (xyxymatch_callback_data_t *) data;
     xyxymatch_output_t *entry;
 
     if (state->outputp >= state->noutput) {
-        stimage_error_format_message(
+        xy_coord_match_error_format_message(
             error, "Number of output coordinates exceeded allocation (%d)", state->noutput);
         return 1;
     }
@@ -102,7 +102,7 @@ xyxymatch(
     const coord_t *ref_origin, /* good default: 0.0, 0.0 */
     const xyxymatch_algo_e algorithm, const double tolerance,
     const double separation, /* good default: 9.0 */
-    const size_t nmatch, const double maxratio, const size_t nreject, stimage_error_t *const error)
+    const size_t nmatch, const double maxratio, const size_t nreject, xy_coord_match_error_t *const error)
 {
 
     static const coord_t DEFAULT_ORIGIN = {0.0, 0.0};
@@ -128,17 +128,17 @@ xyxymatch(
     assert(*noutput > 0);
 
     if (ninput == 0) {
-        stimage_error_set_message(error, "The input coordinate list is empty");
+        xy_coord_match_error_set_message(error, "The input coordinate list is empty");
         goto exit;
     }
 
     if (nref == 0) {
-        stimage_error_set_message(error, "The reference coordinate list is empty");
+        xy_coord_match_error_set_message(error, "The reference coordinate list is empty");
         goto exit;
     }
 
     if (algorithm >= xyxymatch_algo_LAST || algorithm < 0) {
-        stimage_error_set_message(error, "Invalid algorithm specified");
+        xy_coord_match_error_set_message(error, "Invalid algorithm specified");
         goto exit;
     }
 
@@ -220,7 +220,7 @@ xyxymatch(
             break;
         case xyxymatch_algo_LAST:
         default:
-            stimage_error_set_message(error, "Invalid algorithm");
+            xy_coord_match_error_set_message(error, "Invalid algorithm");
             goto exit;
     }
 

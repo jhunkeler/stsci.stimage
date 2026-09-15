@@ -41,12 +41,12 @@ DAMAGE.
 int
 max_num_triangles(
     const size_t ncoords, const size_t maxnpoints, size_t *num_triangles,
-    stimage_error_t *const error)
+    xy_coord_match_error_t *const error)
 {
 
     size_t n = MIN(ncoords, maxnpoints);
     if (n >= 2346 || n == 0) {
-        stimage_error_set_message(error, "maxnpoints should be a lower number");
+        xy_coord_match_error_set_message(error, "maxnpoints should be a lower number");
         return 1;
     }
 
@@ -78,7 +78,7 @@ int
 find_triangles(
     const size_t ncoords, const coord_t *const *const coords, size_t *ntriangles,
     triangle_t *triangles, const size_t maxnpoints, const double tolerance, const double maxratio,
-    stimage_error_t *const error)
+    xy_coord_match_error_t *const error)
 {
 
     const double tol2 = tolerance * tolerance;
@@ -98,7 +98,7 @@ find_triangles(
     assert(error);
 
     if (maxratio > 10.0 || maxratio < 5.0) {
-        stimage_error_format_message(
+        xy_coord_match_error_format_message(
             error, "maxratio should be in the range 5.0 - 10.0 (%f)", maxratio);
         return 1;
     }
@@ -123,7 +123,7 @@ find_triangles(
 
 #ifndef NDEBUG
                 if (ntri >= *ntriangles) {
-                    stimage_error_format_message(
+                    xy_coord_match_error_format_message(
                         error, "Found more triangles than were allocated for (%d)\n", *ntriangles);
                     return 1;
                 }
@@ -221,7 +221,7 @@ int
 merge_triangles(
     const size_t nr_triangles, const triangle_t *const r_triangles, const size_t nl_triangles,
     const triangle_t *const l_triangles, size_t *nmatches, triangle_match_t *const matches,
-    stimage_error_t *const error)
+    xy_coord_match_error_t *const error)
 {
 
     size_t i;
@@ -316,7 +316,7 @@ merge_triangles(
         if (max_tri != NULL) {
 #ifndef NDEBUG
             if (match_iter >= *nmatches) {
-                stimage_error_set_message(
+                xy_coord_match_error_set_message(
                     error, "Found more triangle matches than were allocated for");
                 return 1;
             }
@@ -376,7 +376,7 @@ reject_triangles_compute_sigma_mode_factor(
 
 int
 reject_triangles(
-    size_t *nmatches, triangle_match_t *const matches, const size_t nreject, stimage_error_t *error)
+    size_t *nmatches, triangle_match_t *const matches, const size_t nreject, xy_coord_match_error_t *error)
 {
 
     size_t i = 0;
@@ -457,7 +457,7 @@ reject_triangles(
    beginning of the list containing all matches */
 #ifndef NDEBUG
                 if (ncount >= *nmatches) {
-                    stimage_error_set_message(
+                    xy_coord_match_error_set_message(
                         error, "Rejection created more matches than it started with.");
                     goto exit;
                 }
@@ -535,7 +535,7 @@ _match_triangles(
     const coord_t *const *const input_sorted, size_t *ncoord_matches,
     const coord_t **refcoord_matches_, const coord_t **inputcoord_matches_, const size_t nmatch,
     const double tolerance, const double maxratio, const size_t nreject, size_t *nkeep,
-    size_t *nmerge, stimage_error_t *const error)
+    size_t *nmerge, xy_coord_match_error_t *const error)
 {
 
     const coord_t **refcoord_matches = NULL;
@@ -564,12 +564,12 @@ _match_triangles(
     assert(error);
 
     if (nref < 3) {
-        stimage_error_set_message(error, "Too few reference coordinates to do triangle matching");
+        xy_coord_match_error_set_message(error, "Too few reference coordinates to do triangle matching");
         goto exit;
     }
 
     if (ninput < 3) {
-        stimage_error_set_message(error, "Too few input coordinates to do triangle matching");
+        xy_coord_match_error_set_message(error, "Too few input coordinates to do triangle matching");
         goto exit;
     }
 
@@ -589,7 +589,7 @@ _match_triangles(
     }
 
     if (nref_triangles == 0) {
-        stimage_error_set_message(error, "No valid reference triangles found.");
+        xy_coord_match_error_set_message(error, "No valid reference triangles found.");
         goto exit;
     }
 
@@ -610,7 +610,7 @@ _match_triangles(
     }
 
     if (ninput_triangles == 0) {
-        stimage_error_set_message(error, "No valid input triangles found.");
+        xy_coord_match_error_set_message(error, "No valid input triangles found.");
         goto exit;
     }
 
@@ -692,7 +692,7 @@ match_triangles(
     const size_t ninput, const size_t ninput_unique, const coord_t *const input, /*[ninput]*/
     const coord_t *const *const input_sorted, const size_t nmatch, const double tolerance,
     const double maxratio, const size_t nreject, coord_match_callback_t *callback,
-    void *callback_data, stimage_error_t *const error)
+    void *callback_data, xy_coord_match_error_t *const error)
 {
 
     size_t ncoord_matches = nmatch;

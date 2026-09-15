@@ -70,13 +70,13 @@ py_xyxymatch(PyObject *self, PyObject *args, PyObject *kwds)
     PyObject *dtype_list = NULL;
     PyArray_Descr *dtype = NULL;
     npy_intp dims;
-    stimage_error_t error;
+    xy_coord_match_error_t error;
 
     const char *keywords[] = {"input",      "ref",       "origin",    "mag",        "rotation",
                               "ref_origin", "algorithm", "tolerance", "separation", "nmatch",
                               "maxratio",   "nreject",   NULL};
 
-    stimage_error_init(&error);
+    xy_coord_match_error_init(&error);
 
     if (!PyArg_ParseTupleAndKeywords(
             args, kwds, "OO|OOOOsddndn:xyxymatch", (char **) keywords, &input_obj, &ref_obj,
@@ -121,7 +121,7 @@ py_xyxymatch(PyObject *self, PyObject *args, PyObject *kwds)
             PyArray_DIM(ref_array, 0), (coord_t *) PyArray_DATA(ref_array), &noutput, output,
             &origin, &mag, &rotation, &ref_origin, algorithm, tolerance, separation, nmatch,
             maxratio, nreject, &error)) {
-        PyErr_SetString(PyExc_RuntimeError, stimage_error_get_message(&error));
+        PyErr_SetString(PyExc_RuntimeError, xy_coord_match_error_get_message(&error));
         goto exit;
     }
 

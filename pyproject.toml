@@ -25,9 +25,9 @@ file = "README.md"
 content-type = "text/markdown"
 
 [project.urls]
-Tracker = "https://github.com/spacetelescope/stimage/issues"
-Documentation = "https://stscistimage.readthedocs.io/en/latest/"
-"Source Code" = "https://github.com/spacetelescope/stimage"
+Tracker = "https://github.com/spacetelescope/xy_coord_match/issues"
+Documentation = "https://xy_coord_match.readthedocs.io/en/latest/"
+"Source Code" = "https://github.com/spacetelescope/xy_coord_match"
 
 [project.optional-dependencies]
 test = [

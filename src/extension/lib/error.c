@@ -41,24 +41,24 @@ DAMAGE.
 #include "lib/error.h"
 
 void
-stimage_error_init(stimage_error_t *const error)
+xy_coord_match_error_init(xy_coord_match_error_t *const error)
 {
 
     size_t i;
 
-    for (i = 0; i < STIMAGE_MAX_ERROR_LEN; ++i) {
+    for (i = 0; i < XY_COORD_MATCH_MAX_ERROR_LEN; ++i) {
         error->message[i] = '\0';
     }
 }
 
 void
-stimage_error_set_message(stimage_error_t *error, const char *message)
+xy_coord_match_error_set_message(xy_coord_match_error_t *error, const char *message)
 {
 
     assert(error);
     assert(message);
 
-    strncpy(error->message, message, STIMAGE_MAX_ERROR_LEN);
+    strncpy(error->message, message, XY_COORD_MATCH_MAX_ERROR_LEN);
 
 #if DEBUG
     printf("ERROR RAISED:\n%s\n", error->message);
@@ -67,7 +67,7 @@ stimage_error_set_message(stimage_error_t *error, const char *message)
 }
 
 void
-stimage_error_format_message(stimage_error_t *error, const char *format, ...)
+xy_coord_match_error_format_message(xy_coord_match_error_t *error, const char *format, ...)
 {
 
     /* See http://c-faq.com/varargs/vprintf.html
@@ -79,12 +79,12 @@ stimage_error_format_message(stimage_error_t *error, const char *format, ...)
     assert(format);
 
     va_start(argp, format);
-    (void) vsnprintf(error->message, STIMAGE_MAX_ERROR_LEN, format, argp);
+    (void) vsnprintf(error->message, XY_COORD_MATCH_MAX_ERROR_LEN, format, argp);
     va_end(argp);
 }
 
 const char *
-stimage_error_get_message(stimage_error_t *error)
+xy_coord_match_error_get_message(xy_coord_match_error_t *error)
 {
 
     assert(error);
@@ -93,7 +93,7 @@ stimage_error_get_message(stimage_error_t *error)
 }
 
 int
-stimage_error_is_set(const stimage_error_t *error)
+xy_coord_match_error_is_set(const xy_coord_match_error_t *error)
 {
 
     assert(error);
@@ -102,7 +102,7 @@ stimage_error_is_set(const stimage_error_t *error)
 }
 
 void
-stimage_error_unset(stimage_error_t *error)
+xy_coord_match_error_unset(xy_coord_match_error_t *error)
 {
 
     assert(error);

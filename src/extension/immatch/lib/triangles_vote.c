@@ -43,7 +43,7 @@ vote_triangle_matches(
     const size_t nleft, const coord_t *const left, const size_t nright, const coord_t *const right,
     const size_t ntriangle_matches, const triangle_match_t *const triangle_matches,
     size_t *ncoord_matches, const coord_t **const refcoord_matches,
-    const coord_t **const inputcoord_matches, stimage_error_t *const error)
+    const coord_t **const inputcoord_matches, xy_coord_match_error_t *const error)
 {
 
     typedef size_t vote_t;
@@ -153,7 +153,7 @@ vote_triangle_matches(
 
 #ifndef NDEBUG
         if (ncount >= *ncoord_matches) {
-            stimage_error_format_message(
+            xy_coord_match_error_format_message(
                 error, "Found more coordinate matches than was allocated for\n");
             goto exit;
         }

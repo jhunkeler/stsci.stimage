@@ -39,7 +39,7 @@ DAMAGE.
 #include "lib/util.h"
 
 void *
-malloc_with_error(size_t size, stimage_error_t *error)
+malloc_with_error(size_t size, xy_coord_match_error_t *error)
 {
 
     void *result = NULL;
@@ -48,37 +48,9 @@ malloc_with_error(size_t size, stimage_error_t *error)
 
     result = malloc(size);
     if (result == NULL) {
-        stimage_error_format_message(error, "Error allocating %u bytes", size);
+        xy_coord_match_error_format_message(error, "Error allocating %u bytes", size);
     }
     return result;
-}
-
-void *
-calloc_with_error(size_t nmemb, size_t size, stimage_error_t *error)
-{
-
-    void *result = NULL;
-
-    assert(error);
-
-    result = calloc(nmemb, size);
-    if (result == NULL) {
-        stimage_error_format_message(error, "Error allocating %u bytes", size);
-    }
-    return result;
-}
-
-STIMAGE_Int64
-factorial(size_t n)
-{
-
-    STIMAGE_Int64 fac = 1;
-
-    while (n > 0) {
-        fac *= n--;
-    }
-
-    return fac;
 }
 
 /*
@@ -146,72 +118,6 @@ sort_doubles(const size_t n, double *const a)
     qsort(a, n, sizeof(double), &double_compare);
 }
 
-void
-double_normalize(const double x, double *const normx, int *const expon)
-{
-
-    const double tol = EPS_DOUBLE * 10.0;
-    double absx = ABS(x);
-
-    *expon = 0;
-
-    if (absx > 0.0) {
-        while (absx < (1.0 - tol)) {
-            absx *= 10.0;
-            --(*expon);
-            if (absx == 0.0) {
-                *normx = 0.0;
-                *expon = 0;
-                return;
-            }
-        }
-
-        while (absx >= (10.0 + tol)) {
-            absx /= 10.0;
-            ++(*expon);
-        }
-    }
-
-    if (x < 0) {
-        *normx = -absx;
-    } else {
-        *normx = absx;
-    }
-}
-
-int
-double_approx_equal(const double x, const double y)
-{
-
-    double normx, normy;
-    double x1, x2;
-    int ex, ey;
-    const double tol = EPS_DOUBLE * 32.0;
-
-    /* Obvious first */
-    if (x == y) {
-        return 1;
-    }
-
-    /* We can't normalize zero, so handle the zero operand cases
-       first */
-    if (x == 0.0 || y == 0.0) {
-        return 0;
-    }
-
-    /* Normalize the operands and do an epsilon compare */
-    double_normalize(x, &normx, &ex);
-    double_normalize(y, &normy, &ey);
-
-    if (ex != ey) {
-        return 0;
-    } else {
-        x1 = 1.0 + ABS(normx - normy);
-        x2 = 1.0 + tol;
-        return (x1 <= x2);
-    }
-}
-
 double
 compute_mode(
     const size_t n, const double *const a, const size_t min, const double range, const double bin,
@@ -271,38 +177,4 @@ compute_mode(
     }
 
     return mode;
-}
-
-double
-compute_mean(const size_t n, const double *const a)
-{
-
-    size_t i = 0;
-    double sum = 0.0;
-
-    assert(a);
-
-    for (i = 0; i < n; ++i) {
-        sum += a[i];
-    }
-
-    return sum / (double) n;
-}
-
-void
-compute_mean_coord(const size_t n, const coord_t *const a, coord_t *out)
-{
-
-    size_t i = 0;
-    coord_t sum = {0.0, 0.0};
-
-    assert(a);
-
-    for (i = 0; i < n; ++i) {
-        sum.x += a[i].x;
-        sum.y += a[i].y;
-    }
-
-    out->x = sum.x / (double) n;
-    out->y = sum.y / (double) n;
 }

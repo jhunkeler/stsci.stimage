@@ -42,7 +42,7 @@ match_tolerance(
     const size_t nref, const coord_t *const ref, const coord_t *const *const ref_sorted,
     const size_t ninput, const coord_t *const input, const coord_t *const *const input_sorted,
     const double tolerance, coord_match_callback_t *callback, void *callback_data,
-    stimage_error_t *const error)
+    xy_coord_match_error_t *const error)
 {
 
     const double tolerance2 = tolerance * tolerance;
