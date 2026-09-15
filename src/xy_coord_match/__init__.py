@@ -28,7 +28,7 @@
 # DAMAGE.
 
 from __future__ import absolute_import
-from ._version import version as __version__  # noqa: F401
+from ._version import __version__ # noqa: F401
 import xy_coord_match._c_xy_coord_match as _c_xy_coord_match
 
 def xyxymatch(
